@@ -1,12 +1,51 @@
 ---
 - name: Machine setup
   hosts: localhost
-  become: true
+  become: false
   connection: local
   gather_facts: true
-  vars:
-    foo: bar
-  tasks:
-    - name: Get my user
+  
+  pre_tasks:
+
+    - name: Display all facts
+      debug:
+        var: ansible_facts
+
+    - name: Fail on invalid OS/Arch
+      fail:
+        msg: "Unsupported OS+Arch! (only Linux+amd64 or Darwin+arm64 is allowed)"
+      tags: always
+      when: >
+        ( ansible_os_family == "Darwin" and ansible_architecture == "aarch64" ) or
+        ( ansible_os_family == "Debian" and ansible_architecture == "x86_64" )
+
+    - name: Mac fact
       ansible.builtin.set_fact:
-        remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+        mac: true
+        linux: false
+      tags: always
+      when: ansible_facts['os_family'] == "Darwin" and ansible_architecture == "arm64" 
+
+    - name: Linux fact
+      ansible.builtin.set_fact:
+        mac: false
+        linux: true
+      tags: always
+      when: ansible_facts['os_family'] == "Debian" and ansible_architecture == "x86_64"
+
+  # roles:
+  #   - role: elliotweiser.osx-command-line-tools
+  #   - role: geerlingguy.mac.homebrew
+  #     tags: ['homebrew']
+  #   - role: geerlingguy.mac.mas
+  #     when: mas_installed_apps or mas_installed_app_ids
+  #     tags: ['mas']
+  #   - role: geerlingguy.mac.dock
+  #     when: configure_dock
+  #     tags: ['dock']
+
+
+  tasks:
+    - name: Include Install Tasks
+      include_tasks: install.yaml
+      tags: always
