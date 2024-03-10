@@ -1,15 +1,25 @@
 ---
-- name: Execute geerlingguy's Mac installer
-  include_role:
-    name: geerlingguy.mac.homebrew
-  when: mac
-  vars:
-    homebrew_upgrade_all_packages: true
-    homebrew_installed_packages:
+- name: Set facts for common packages (Linux and Mac)
+  set_fact:
+    # basic packages that do exist in brew and apt-get
+    common_packages:
       - bash
       - bash-completion
       - zsh
       - curl
+      - htop
+      - fzf
+      - xclip
+      - vim
+
+- name: Execute geerlingguy's Mac installer
+  when: mac
+  include_role:
+    name: geerlingguy.mac.homebrew
+  vars:
+    homebrew_upgrade_all_packages: true
+    # these packages are unique and do not exist in apt-get
+    homebrew_specific_installed_packages:
       - rbw
       - chezmoi
       - htop
@@ -19,12 +29,15 @@
       - gnu-indent
       - gnu-sed
       - gnu-tar
-      - fzf
-      - xclip
-      - vim
+    homebrew_installed_packages: "{{ common_packages + homebrew_specific_installed_packages }}"
     homebrew_cask_accept_external_apps: true
     homebrew_cask_apps:
       - firefox
       - brave-browser
       - vscodium
       - bitwarden
+
+- name: Install Linux Packages
+  when: linux
+  debug:
+    var: common_packages
