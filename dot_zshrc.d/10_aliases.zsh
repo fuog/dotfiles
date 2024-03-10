@@ -23,13 +23,15 @@ function scp_wrap {
   command scp "${(@)args}"
 }
 
-# replace the normal cat
+# replace the normal x with x
 command -v bat >/dev/null 2>&1 && \
     alias cat=bat
 command -v batcat >/dev/null 2>&1 && \
     alias cat=batcat
+command -v rbw >/dev/null 2>&1 && \
+    alias bw="rbw"
 
-# Pipe to clipboard (apt install xclip)
+ Pipe to clipboard (apt install xclip)
 command -v xclip >/dev/null 2>&1 && \
     alias xclip="xclip -selection c"
 

@@ -29,6 +29,7 @@ setopt hist_reduce_blanks # Remove superfluous blanks before recording entry.
 setopt hist_save_no_dups # Don't write duplicate entries in the history file.
 setopt share_history # share history between multiple shells
 setopt HIST_IGNORE_SPACE # Don't record an entry starting with a space.
+export ZSH_COMPDUMP=$ZSH/.cache/zcompdump-$HOST
 
 # unmanaged bin dir in .local/bin
 int_extend_path "$HOME/.local/bin:$PATH" "true"
