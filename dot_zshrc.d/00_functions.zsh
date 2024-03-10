@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # Adding some paths to Shell
-int_extend_path() {
+function int_extend_path() {
     # $1 : path to bin folder
     # $2 : should new path come first (false/true)
     local first; first="${2:-"false"}"
@@ -34,7 +34,6 @@ function update_bin_completion() {
     if [[ -e "${cmd_note_path}" ]] && [[ "$(cat "$cmd_note_path")" == "$cmd_sha" ]]; then
         return 0 # SHA and File Path is still the same
         echo "Already added"
-
     else
         # File does not exist or SHA/Path is wrong
         local cmd_array=("$(dirname $cmd_path)/$@")
@@ -53,4 +52,21 @@ function update_bin_completion() {
 
         return 0
     fi
+}
+
+function git_setup() {
+    if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1 ; then
+        echo "You're nor in a git repo!" && return 1
+    fi
+    if [[ "$(git remote get-url origin)" == *"github.com"* ]]; then
+        echo "Configure github.com Repo!"
+        git config user.name "Fuog"
+        git config user.email "75864954+fuog@users.noreply.github.com"
+    else
+        echo "Unknown Repo! :(" ; return 1
+    fi
+    command -v pre-commit >/dev/null 2>&1 && \\
+            test -f "$(git rev-parse --show-toplevel)/.pre-commit.yaml" && \
+                pre-commit install
+
 }

@@ -11,3 +11,7 @@ update_bin_completion kubectl completion zsh
 update_bin_completion helm completion zsh
 update_bin_completion helmfile completion zsh
 update_bin_completion helm_ls completion zsh
+
+# at the very end ..
+unfunction int_extend_path
+unfunction update_bin_completion
