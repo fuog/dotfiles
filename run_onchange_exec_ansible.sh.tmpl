@@ -5,4 +5,4 @@
 # requirements.yaml hash: {{ include "dot_config/bootstrap/requirements.yaml" | sha256sum }}
 
 ansible-galaxy install -r "$HOME/.config/bootstrap/requirements.yaml"
-ansible-playbook "$HOME/.config/bootstrap/main.yaml"
+ansible-playbook "$HOME/.config/bootstrap/main.yaml" --ask-become-pass

@@ -3,14 +3,25 @@
   set_fact:
     # basic packages that do exist in brew and apt-get
     common_packages:
+      - git
+      - zsh
       - bash
       - bash-completion
-      - zsh
+      - ca-certificates
+      - grc
+      - wget
       - curl
+      - tree
       - htop
       - fzf
-      - xclip
       - vim
+      - htop
+      - xclip
+      - dnsutils
+      - tcpdump
+      - net-tools
+      - wireshark
+      - podman
 
 - name: Execute geerlingguy's Mac installer
   when: mac
@@ -39,5 +50,15 @@
 
 - name: Install Linux Packages
   when: linux
-  debug:
-    var: common_packages
+  become: true
+  vars:
+    apt_specific_packages:
+      - dnsutils
+      - usbutils
+      - pciutils
+      - gdebi-core
+      - nfs-common
+      - net-tools
+      - python3
+  apt:
+    name: "{{ common_packages + apt_specific_packages }}"
