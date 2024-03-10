@@ -16,22 +16,22 @@
         msg: "Unsupported OS+Arch! (only Linux+amd64 or Darwin+arm64 is allowed)"
       tags: always
       when: >
-        ( ansible_os_family == "Darwin" and ansible_architecture == "aarch64" ) or
-        ( ansible_os_family == "Debian" and ansible_architecture == "x86_64" )
+        not ( ( ansible_os_family == "Darwin" and ansible_architecture == "arm64" ) or
+              ( ansible_os_family == "Debian" and ansible_architecture == "x86_64" ) )
 
     - name: Mac fact
       ansible.builtin.set_fact:
         mac: true
         linux: false
       tags: always
-      when: ansible_facts['os_family'] == "Darwin" and ansible_architecture == "arm64" 
+      when: ansible_os_family == "Darwin" and ansible_architecture == "arm64" 
 
     - name: Linux fact
       ansible.builtin.set_fact:
         mac: false
         linux: true
       tags: always
-      when: ansible_facts['os_family'] == "Debian" and ansible_architecture == "x86_64"
+      when: ansible_os_family == "Debian" and ansible_architecture == "x86_64"
 
   tasks:
     - name: Include Install Tasks
