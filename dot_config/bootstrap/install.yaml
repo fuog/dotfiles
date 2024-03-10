@@ -17,11 +17,7 @@
       - vim
       - htop
       - xclip
-      - dnsutils
       - tcpdump
-      - net-tools
-      - wireshark
-      - podman
 
 - name: Execute geerlingguy's Mac installer
   when: mac
@@ -47,6 +43,7 @@
       - brave-browser
       - vscodium
       - bitwarden
+      - podman-desktop
 
 - name: Install Linux Packages
   when: linux
@@ -55,10 +52,15 @@
     apt_specific_packages:
       - dnsutils
       - usbutils
+      - podman
       - pciutils
       - gdebi-core
       - nfs-common
       - net-tools
       - python3
+      - dnsutils
+      - net-tools
+      - wireshark
+      - podman
   apt:
     name: "{{ common_packages + apt_specific_packages }}"
