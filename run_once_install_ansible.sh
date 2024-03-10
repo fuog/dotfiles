@@ -12,6 +12,10 @@ if [[ "$OS" == "Linux" && "$ARCH" == "x86_64" ]]; then
 elif [[ "$OS" == "Darwin" && "$ARCH" == "arm64" ]]; then
     echo "This is a Darwin arm64 system"
 
+    # you have to install homebrew manually because even chezmoi is pulled via brew
+    command -v brew >/dev/null 2>&1 || \
+        { echo "This Mac is not supported without 'brew'!"; exit 1 ;}
+
 else
     echo "This is no debian/x86 or Darwin/arm64!"
     exit 1
