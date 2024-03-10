@@ -7,9 +7,9 @@
   
   pre_tasks:
 
-    - name: Display all facts
-      debug:
-        var: ansible_facts
+#    - name: Display all facts
+#      debug:
+#        var: ansible_facts
 
     - name: Fail on invalid OS/Arch
       fail:
