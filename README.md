@@ -15,3 +15,14 @@ This repo is for used with [chezmoi](https://www.chezmoi.io/).
   - install chezmoi with `brew install chezmoi`
 
 Now you can start with `chezmoi init --apply fuog/dotfiles`
+
+## Unlocking stuff
+
+Using `rbw` to write the privat key.
+
+```bash
+rbw get --field id "21091ceb-721e-4bb5-8e83-5a55ec337d9c" \
+  --raw | jq -r '.data.password' \
+    >> "$HOME/.local/share/chezmoi/age_privat_key.txt"
+chmod 600 "$HOME/.local/share/chezmoi/age_privat_key.txt"
+```

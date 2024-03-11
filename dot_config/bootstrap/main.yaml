@@ -24,7 +24,7 @@
         mac: true
         linux: false
       tags: always
-      when: ansible_os_family == "Darwin" and ansible_architecture == "arm64" 
+      when: ansible_os_family == "Darwin" and ansible_architecture == "arm64"
 
     - name: Linux fact
       ansible.builtin.set_fact:

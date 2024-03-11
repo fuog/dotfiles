@@ -1,0 +1,12 @@
+edit:
+  command: "codium"
+  args: ["--wait"]
+git:
+  autoCommit: true
+  autoPush: true
+  commitMessageTemplate: "{{ promptString "Commit message" }}"
+
+encryption: "age"
+age:
+  identity: "{{ .chezmoi.config.sourceDir }}/age_privat_key.txt"
+  recipient: "age19ucf4mfj8gr2s5hzcvcmqe6rycflakzkceyx2wl6fdnnswvjjfrqxh3ntv"
