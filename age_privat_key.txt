@@ -1,3 +1,0 @@
-# created: 2024-03-11T01:17:40+01:00
-# public key: age19ucf4mfj8gr2s5hzcvcmqe6rycflakzkceyx2wl6fdnnswvjjfrqxh3ntv
-AGE-SECRET-KEY-1DDNW0EZ7H3WR94EEQSM4MCFFSFZGY6WG89FZ94KUZLNDSM8L3GKQL8X65N
