@@ -1,2 +1,2 @@
 # https://www.chezmoi.io/reference/special-files-and-directories/chezmoiremove/
-.zcompdump*
+#   .zcompdump*

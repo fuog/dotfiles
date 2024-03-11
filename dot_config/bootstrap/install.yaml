@@ -16,6 +16,8 @@
       - fzf
       - vim
       - age
+      - jq
+      - yq
       - htop
       - xclip
       - tcpdump
