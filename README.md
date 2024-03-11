@@ -23,6 +23,6 @@ Using `rbw` to write the privat key.
 ```bash
 rbw get --field id "21091ceb-721e-4bb5-8e83-5a55ec337d9c" \
   --raw | jq -r '.data.password' \
-    >> "$HOME/.local/share/chezmoi/age_privat_key.txt"
-chmod 600 "$HOME/.local/share/chezmoi/age_privat_key.txt"
+    >> "$HOME/.config/chezmoi/age_identity_key.txt"
+chmod 600 "$HOME/.config/chezmoi/age_identity_key.txt"
 ```
