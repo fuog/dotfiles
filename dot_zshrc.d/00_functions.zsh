@@ -49,7 +49,6 @@ function update_bin_completion() {
             return
         }
         echo "Added ${cmd_name} to auto-completions in zinit"
-
         return 0
     fi
 }
@@ -73,6 +72,7 @@ function git_setup() {
 
 # This function just helps finding the right command, or executing it
 function rbw_find_entry() {
+    rbw unlock || return 1
     local FZF_DEFAULT_OPTS selected_entry selected_id usable_methods selected_custom_field selected_method command
     # see https://www.mankier.com/1/fzf
     FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --extended" # Extended-search mode
@@ -100,10 +100,7 @@ function rbw_find_entry() {
         echo "unexpected!" ; return 1
     fi
     if [[ "$1" == "exec" ]]; then ; eval $command
-    if [[ -p /dev/stdout ]]; then
-        echo "$command"
-    else
-        echo "Use this command:" >&2 ; echo -n "# >> " >&2
-        echo "$command"
+    elif [[ -p /dev/stdout ]]; then ; echo "$command"
+    else echo "Use this command:" >&2 ; echo -n "# >> " >&2 ; echo "$command"
     fi
 }

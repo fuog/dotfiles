@@ -47,6 +47,9 @@
       - vscodium
       - bitwarden
       - podman-desktop
+      - forkgram-telegram
+      - whatsapp
+      - element
 # Missing packages on linux
 # - wireshark
 

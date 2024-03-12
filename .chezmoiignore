@@ -1,2 +1,5 @@
 README.md
 **/age_privat_key.txt
+{{- if ne .chezmoi.os "darwin" }}
+Library/**
+{{- end }}
