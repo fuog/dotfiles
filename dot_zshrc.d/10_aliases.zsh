@@ -47,6 +47,11 @@ command -v kubeseal >/dev/null 2>&1 && \
         kubectl config get-clusters | grep "Privat-K3s-cluster" >/dev/null 2>&1 && \
             alias kubeseal-priv="kubeseal --controller-name=sealed-secrets --controller-namespace=system-sealed-secrets --format yaml"
 
-# list manually installed packages
+# make life easier
 command -v xclip >/dev/null 2>&1 && \
   alias apt-installed-pkg="comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)"
+
+command -v chezmoi >/dev/null 2>&1 && \
+    command -v codium >/dev/null 2>&1 && \
+        command -v jq >/dev/null 2>&1 && \
+            alias chezmoi-git="codium \"$(chezmoi data | jq -r '.chezmoi.config.workingTree')\""
