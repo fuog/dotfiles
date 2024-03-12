@@ -28,9 +28,10 @@ zi ice depth"1" && \
 test -f "$HOME/.p10k.zsh" && source "$HOME/.p10k.zsh"
 
 # never load the ssh-agent if we are on a remote connection
-test -z "$SSH_CLIENT" && (
-  zi ice depth"1" pick"ssh-agent.zsh" && \
-    zi light fuog/zsh-ssh-agent )
+# maybe drop ?
+# test -z "$SSH_CLIENT" && (
+#   zi ice depth"1" pick"ssh-agent.zsh" && \
+#     zi light fuog/zsh-ssh-agent )
 
 # syntax-highlighting
 zi ice depth"1" && \
