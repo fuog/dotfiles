@@ -70,3 +70,40 @@ function git_setup() {
                 pre-commit install
 
 }
+
+# This function just helps finding the right command, or executing it
+function rbw_find_entry() {
+    local FZF_DEFAULT_OPTS selected_entry selected_id usable_methods selected_custom_field selected_method command
+    # see https://www.mankier.com/1/fzf
+    FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --extended" # Extended-search mode
+    FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --exact" # Enable exact-match
+    FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --info=inline" # Display from the top of the screen
+    selected_entry="$(rbw list --fields name,user,folder \
+        | awk -F '\t' '{for(i=1; i<=NF; i++) printf "%s\t\t", substr($i, 1, 50); print ""}' \
+        | column -t -s $'\t' \
+        | fzf --header='= search: name, username or folder =========' | sed 's/ \{6,\}.*//' | tr -d '\n')" || {echo "Error"; return 1;}
+    selected_id="$(rbw get "$selected_entry" --raw | jq -r '.id')" || {echo "Error"; return 1;}
+    usable_methods='id\nname\nusername\npassword\ntotp\ncustom_fields\nnotes\nfolder'
+    selected_method="$(echo -e "$usable_methods" | fzf --header='== select a field =========')" || {echo "Error"; return 1;}
+    if [[ "$selected_method" == "custom_fields" ]] ; then
+        selected_custom_field="$(rbw get --field id "$selected_id" --raw \
+        | jq -r '.fields[].name' \
+        | fzf --header='== select a custom_field =========')" || {echo "Error"; return 1;}
+        command="rbw get --field id \"$selected_id\" --raw | jq -r '.fields[] | select(.name==\"$selected_custom_field\") | .value'"
+    elif [[ "$selected_method" == "username" ]] || [[ "$selected_method" == "password" ]] || [[ "$selected_method" == "totp" ]] ; then
+        command="rbw get --field id \"$selected_id\" --raw | jq -r '.data.$selected_method'"
+    elif [[ "$selected_method" == "name" ]] || [[ "$selected_method" == "notes" ]] || [[ "$selected_method" == "folder" ]]; then
+        command="rbw get --field id \"$selected_id\" --raw | jq -r '.$selected_method'"
+    elif [[ "$selected_method" == "id" ]] ; then
+        command="rbw get "$selected_entry" --raw | jq -r '.$selected_method'"
+    else
+        echo "unexpected!" ; return 1
+    fi
+    if [[ "$1" == "exec" ]]; then ; eval $command
+    if [[ -p /dev/stdout ]]; then
+        echo "$command"
+    else
+        echo "Use this command:" >&2 ; echo -n "# >> " >&2
+        echo "$command"
+    fi
+}
