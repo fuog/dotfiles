@@ -17,7 +17,6 @@
       - vim
       - age
       - jq
-      - yq
       - htop
       - xclip
       - tcpdump
@@ -34,6 +33,7 @@
       - chezmoi
       - htop
       - dog
+      - yq
       - gnutls
       - gnu-getopt
       - gnu-indent
@@ -47,6 +47,9 @@
       - vscodium
       - bitwarden
       - podman-desktop
+# Missing packages on linux
+# - wireshark
+
 
 - name: Install Linux Packages
   when: linux
@@ -65,5 +68,8 @@
       - net-tools
       - wireshark
       - podman
+# Missing packages on linux
+# - dog
+# - yq
   apt:
     name: "{{ common_packages + apt_specific_packages }}"
