@@ -4,6 +4,7 @@
     # basic packages that do exist in brew and apt-get
     common_packages:
       - git
+      - ipcalc
       - zsh
       - bash
       - bash-completion
