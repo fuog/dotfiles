@@ -5,6 +5,10 @@
 
 ZDEBUG="${ZDEBUG:-"false"}"
 
+# if employeer-proxy; settings need to be set first
+test -f /etc/profile.d/10_proxy_settings.sh && \
+    source /etc/profile.d/10_proxy_settings.sh
+
 internet_access=true; timeout 1 curl https://ipinfo.io/ip >/dev/null 2>&1 || internet_access=false
 
 # reminder 'sh -c "$(curl -fsLS get.chezmoi.io/lb)"'
