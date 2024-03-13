@@ -3,6 +3,35 @@
 # main.yaml hash: {{ include "dot_config/bootstrap/main.yaml" | sha256sum }}
 # install.yaml hash: {{ include "dot_config/bootstrap/install.yaml" | sha256sum }}
 # requirements.yaml hash: {{ include "dot_config/bootstrap/requirements.yaml" | sha256sum }}
+
+#!/bin/bash
 set -e
-ansible-galaxy install -r "$HOME/.config/bootstrap/requirements.yaml"
-ansible-playbook "$HOME/.config/bootstrap/main.yaml" --ask-become-pass
+# debug with : chezmoi state delete-bucket --bucket=scriptState
+OS=$(uname -s)
+ARCH=$(uname -m)
+
+# Linux + x86_64
+if [[ "$OS" == "Linux" && "$ARCH" == "x86_64" ]]; then
+    echo "This is a Linux amd64 system, installing ansible.."
+    command -v apt-get >/dev/null 2>&1 || \
+        { echo "This Linux is not supported without 'apt-get'!"; exit 1 ;}
+    # only stuff that can not be managed by ansible later on
+    sudo apt-get install ansible -y
+    echo "Ensure required dependencies.."
+    ansible-galaxy install -r "$HOME/.config/bootstrap/requirements.yaml"
+    echo "starting bootstrap ansible-playbook!"
+    ansible-playbook "$HOME/.config/bootstrap/main.yaml" --ask-become-pass
+# OS X + arm64
+elif [[ "$OS" == "Darwin" && "$ARCH" == "arm64" ]]; then
+    echo "This is a Darwin arm64 system, starting bootstrap ansible-playbook!"
+    # you have to install homebrew manually because even chezmoi is pulled via brew
+    command -v brew >/dev/null 2>&1 || \
+        { echo "This Mac is not supported without 'brew'!"; exit 1 ;}
+    echo "Ensure required dependencies.."
+    ansible-galaxy install -r "$HOME/.config/bootstrap/requirements.yaml"
+    echo "starting bootstrap ansible-playbook!"
+    ansible-playbook "$HOME/.config/bootstrap/main.yaml"
+else
+    echo "This is no debian/x86 or Darwin/arm64!"
+    exit 1
+fi
