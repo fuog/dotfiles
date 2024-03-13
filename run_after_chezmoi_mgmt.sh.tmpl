@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 # This is used to link the decrypted file to the Repo (and ignoring it) for easy working with that script
-# chezmoi does not like symbolic links that can't resolve it does error-out before evaluating `.chezmoiignore`
+# chezmoi does not like symbolic links that can't resolve to a file, it does error-out before evaluating `.chezmoiignore`
+# so we need to ONLY create the link if the file does exist (after decryption)
 test -f "{{ .chezmoi.config.destDir }}/.zshrc.d/05_work.zsh" && \
     ln -sf "{{ .chezmoi.config.destDir }}/.zshrc.d/05_work.zsh" "{{ .chezmoi.config.workingTree }}/dot_zshrc.d/05_work_decrypted.zsh"
-
