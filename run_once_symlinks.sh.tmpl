@@ -1,0 +1,3 @@
+#!/bin/bash
+# This is used to link the decrypted file to the Repo (and ignoring it) for easy working with that script
+ln -sf "{{ .chezmoi.config.destDir }}/.zshrc.d/05_work.zsh" "{{ .chezmoi.config.workingTree }}/dot_zshrc.d/05_work_decrypted.zsh"
