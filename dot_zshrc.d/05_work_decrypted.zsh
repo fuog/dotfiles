@@ -1,1 +1,0 @@
-/Users/m0566808/.zshrc.d/05_work.zsh
