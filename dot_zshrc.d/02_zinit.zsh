@@ -5,7 +5,7 @@ autoload -Uz compinit
 compinit
 
 # load ZINIT
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+ZINIT_HOME="${XDG_DATA_HOME:-"${HOME}/.local/share"}/zinit/zinit.git"
 source "${ZINIT_HOME}/zinit.zsh" || echo "Error ZINIT not found! at $ZINIT_HOME"
 
 # Do load the 'ZI' cmd if file does exist

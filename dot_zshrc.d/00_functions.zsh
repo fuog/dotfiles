@@ -95,7 +95,7 @@ function rbw_find_entry() {
     elif [[ "$selected_method" == "name" ]] || [[ "$selected_method" == "notes" ]] || [[ "$selected_method" == "folder" ]]; then
         command="rbw get --field id \"$selected_id\" --raw | jq -r '.$selected_method'"
     elif [[ "$selected_method" == "id" ]] ; then
-        command="rbw get "$selected_entry" --raw | jq -r '.$selected_method'"
+        command="rbw get \"$selected_entry\" --raw | jq -r '.$selected_method'"
     else
         echo "unexpected!" ; return 1
     fi
