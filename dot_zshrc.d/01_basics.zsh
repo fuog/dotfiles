@@ -58,3 +58,7 @@ int_extend_path "${KREW_ROOT:-$HOME/.krew}/bin:$PATH" "true"
 mkdir -p "$HOME/.golib"
 export GOPATH="$HOME/.golib"
 int_extend_path "$GOPATH/bin"
+
+# adding SSH keys
+#add_ssh_id "$HOME/.ssh/id_rsa"
+#add_ssh_id "$HOME/.ssh/id_ed25519"

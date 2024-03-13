@@ -104,3 +104,18 @@ function rbw_find_entry() {
     else echo "Use this command:" >&2 ; echo -n "# >> " >&2 ; echo "$command"
     fi
 }
+
+
+add_ssh_id() {
+    # $1 path to encrypted id
+    local LOADED_KEYS PUB
+    test -f "$1" && grep "OPENSSH PRIVATE" < $1 >/dev/null 2>&1 || { echo "Error: add_ssh_id() id-file does not exist or is invalid" ; return 1;}
+    LOADED_KEYS="$(ssh-add -L)"
+    test -f "$1.pub" || { echo "Error: add_ssh_id() pub-file does not exist" ; return 1 ;}
+    PUB="$(cat "$1.pub")"
+    if [[ "$LOADED_KEYS" == *"$PUB"* ]] ; then
+        return 0  # key already loaded
+    else
+        ssh-add "$1"
+    fi
+}
