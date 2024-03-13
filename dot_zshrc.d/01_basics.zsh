@@ -21,8 +21,8 @@ source "$(dirname "$0")/00_functions.zsh"
 
 # some history configurations
 export HISTFILE=~/.zsh_history # Where it gets saved
-export HISTSIZE=10000
-export SAVEHIST=10000
+export HISTSIZE=1000000
+export SAVEHIST=1000000
 setopt append_history # Don't overwrite, append!
 setopt INC_APPEND_HISTORY # Write after each command
 setopt hist_expire_dups_first # Expire duplicate entries first when trimming history.
