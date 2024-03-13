@@ -44,7 +44,9 @@ command -v grc >/dev/null 2>&1 && \
 
 # Load autocompletion and nice fzf key-bindings
 zi ice depth"1" pick"/dev/null" as"completions" multisrc"shell/{key-bindings,completion}.zsh" && \
-  zi light junegunn/fzf
+  zi light junegunn/fzf && \
+    export FZF_CTRL_R_OPTS="--extended --exact"
+
 
 zi ice depth"1" && \
   zi light zsh-users/zsh-autosuggestions
