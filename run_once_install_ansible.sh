@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 # debug with : chezmoi state delete-bucket --bucket=scriptState
 OS=$(uname -s)
 ARCH=$(uname -m)
