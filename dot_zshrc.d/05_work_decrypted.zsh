@@ -1,1 +1,1 @@
-/home/nathanael/.zshrc.d/05_work.zsh
+/Users/m0566808/.zshrc.d/05_work.zsh
