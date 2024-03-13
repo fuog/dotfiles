@@ -16,3 +16,4 @@ update_bin_completion rbw gen-completions zsh
 # at the very end ..
 unfunction int_extend_path
 unfunction update_bin_completion
+unset internet_access
