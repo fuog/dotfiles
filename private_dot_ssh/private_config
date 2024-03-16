@@ -1,0 +1,5 @@
+Host *
+    ForwardAgent yes
+
+# Include the config files in the config.d directory
+Include ~/.ssh/config.d/*

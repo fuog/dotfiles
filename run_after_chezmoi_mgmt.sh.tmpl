@@ -5,3 +5,9 @@ set -e
 # so we need to ONLY create the link if the file does exist (after decryption)
 test -f "{{ .chezmoi.config.destDir }}/.zshrc.d/05_work.zsh" && \
     ln -sf "{{ .chezmoi.config.destDir }}/.zshrc.d/05_work.zsh" "{{ .chezmoi.config.workingTree }}/dot_zshrc.d/05_work_decrypted.zsh"
+
+test -f "{{ .chezmoi.config.destDir }}/.ssh/config.d/private" && \
+    ln -sf "{{ .chezmoi.config.destDir }}/.ssh/config.d/private" "{{ .chezmoi.config.workingTree }}/private_dot_ssh/config.d/private_decrypted"
+
+test -f "{{ .chezmoi.config.destDir }}/.ssh/config.d/work" && \
+    ln -sf "{{ .chezmoi.config.destDir }}/.ssh/config.d/work" "{{ .chezmoi.config.workingTree }}/private_dot_ssh/config.d/work_decrypted"
