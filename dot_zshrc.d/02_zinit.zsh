@@ -35,7 +35,7 @@ test -f "$HOME/.p10k.zsh" && source "$HOME/.p10k.zsh"
 
 # syntax-highlighting
 zi ice depth"1" && \
-  zi light z-shell/F-Sy-H
+  zi light zsh-users/zsh-syntax-highlighting
 
 # check first if grc does exist
 command -v grc >/dev/null 2>&1 && \

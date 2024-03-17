@@ -1,5 +1,6 @@
 #!/bin/zsh
 # Moved all files to zsh.d folder
+zmodload zsh/zprof
 for file in $HOME/.zshrc.d/*.zsh; do
     source "$file"
 done
