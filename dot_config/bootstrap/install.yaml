@@ -40,6 +40,7 @@
       - gnu-indent
       - gnu-sed
       - gnu-tar
+      - openfortivpn
     homebrew_installed_packages: "{{ common_packages + homebrew_specific_installed_packages }}"
     homebrew_cask_accept_external_apps: true
     homebrew_cask_apps:
