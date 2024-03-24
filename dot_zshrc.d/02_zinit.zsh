@@ -1,5 +1,10 @@
 #!/bin/zsh
 
+# Added by p10k for quick launch of shell
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # has to be early
 autoload -Uz compinit
 compinit

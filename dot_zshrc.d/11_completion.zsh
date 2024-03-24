@@ -17,3 +17,7 @@
 unfunction int_extend_path
 unfunction update_bin_completion
 unset internet_access
+
+
+# Added by p10k for quick launch of shell
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

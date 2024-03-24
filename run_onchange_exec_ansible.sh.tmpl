@@ -3,8 +3,6 @@
 # main.yaml hash: {{ include "dot_config/bootstrap/main.yaml" | sha256sum }}
 # install.yaml hash: {{ include "dot_config/bootstrap/install.yaml" | sha256sum }}
 # requirements.yaml hash: {{ include "dot_config/bootstrap/requirements.yaml" | sha256sum }}
-
-#!/bin/bash
 set -e
 # debug with : chezmoi state delete-bucket --bucket=scriptState
 OS=$(uname -s)
