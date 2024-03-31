@@ -1,4 +1,5 @@
 #!/bin/zsh
+set -e
 # setting up zinit if needed
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [ ! -d $ZINIT_HOME ]; then
