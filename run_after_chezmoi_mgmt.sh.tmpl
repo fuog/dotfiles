@@ -11,3 +11,6 @@ test -f "{{ .chezmoi.config.destDir }}/.ssh/config.d/private-config" && \
 
 test -f "{{ .chezmoi.config.destDir }}/.ssh/config.d/work-config" && \
     ln -sf "{{ .chezmoi.config.destDir }}/.ssh/config.d/work-config" "{{ .chezmoi.config.workingTree }}/private_dot_ssh/config.d/work-config_decrypted"
+
+test -f "{{ .chezmoi.config.destDir }}/.scripts/git-helper.sh" && \
+    ln -sf "{{ .chezmoi.config.destDir }}/.scripts/git-helper.sh" "{{ .chezmoi.config.workingTree }}/dot_scripts/encrypted_executable_git-helper_decrypted.sh"
