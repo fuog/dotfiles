@@ -13,6 +13,12 @@
 (update_bin_completion helm_ls completion zsh > /dev/null 2>&1 &)
 (update_bin_completion rbw gen-completions zsh > /dev/null 2>&1 &)
 
+# adding az completion
+command -v az >/dev/null 2>&1 && \
+    {export AZURE_OUTPUT=yamlc
+    test -r /etc/bash_completion.d/azure-cli && \
+        source /etc/bash_completion.d/azure-cli; }
+
 # at the very end ..
 unfunction int_extend_path
 unfunction update_bin_completion
