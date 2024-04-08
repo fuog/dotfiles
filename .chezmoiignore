@@ -1,6 +1,7 @@
 README.md
 **/age_privat_key.txt
-**/*_decrypted.zsh
+**/*_decrypted.*
+**/*_decrypted
 
 {{- if ne .chezmoi.os "darwin" }}
 Library/**
