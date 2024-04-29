@@ -58,7 +58,6 @@
 # Missing packages on linux
 # - wireshark
 
-
 - name: Install Linux Packages
   when: linux
   become: true
