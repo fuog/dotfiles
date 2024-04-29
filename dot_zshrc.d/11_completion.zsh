@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+# drop any missing links
+find "$HOME/.local/share/zinit/completions" -type l ! -exec test -e {} \; -delete
+
+# load all the fancy completions
 (update_bin_completion rbw gen-completions zsh > /dev/null 2>&1 &)
 (update_bin_completion tkn completion zsh > /dev/null 2>&1 &)
 (update_bin_completion k3d completion zsh > /dev/null 2>&1 &)
@@ -24,6 +28,9 @@ unfunction int_extend_path
 unfunction update_bin_completion
 unset internet_access
 
+# should be executed atthe end of rc
+autoload -Uz compinit
+compinit
 
 # Added by p10k for quick launch of shell
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
