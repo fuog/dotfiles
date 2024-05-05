@@ -61,7 +61,11 @@ function git_setup() {
         echo "Configure {{ (rbwFields "--field" "id" "8ddb8301-a24b-4916-a12c-b3048702219c").hostname.value }} Repo!"
         git config user.name "{{ (rbwFields "--field" "id" "037c5927-0473-4020-9e47-dcfd3d04228a").displayName.value }}"
         git config user.email "{{ (rbw "--field" "id" "037c5927-0473-4020-9e47-dcfd3d04228a").data.username }}"
-    elif [[ "$(git remote get-url origin)" == *"github.com"* ]]; then
+    elif [[ "$(git remote get-url origin)" == *"{{ (rbwFields "--field" "id" "cd30813d-40d9-45a4-a2a9-f5f9de3ce273").hostname.value }}"* ]]; then
+        echo "Configure {{ (rbwFields "--field" "id" "cd30813d-40d9-45a4-a2a9-f5f9de3ce273").hostname.value }} Repo!"
+        git config user.name "Nathanael Fuog"
+        git config user.email "{{ (rbwFields "--field" "id" "cbbcfef2-6483-4ff3-9df6-ec5d8030d483").email.value }}"
+    elif [[ "$(git remote get-url origin)" == *""* ]]; then
         echo "Configure github.com Repo!"
         git config user.name "Nathanael Fuog"
         git config user.email "75864954+fuog@users.noreply.github.com"
