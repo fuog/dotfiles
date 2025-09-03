@@ -125,3 +125,31 @@ add_ssh_id() {
         ssh-add "$1"
     fi
 }
+
+bsw6-vpn() {
+    local CONNECTION_NAME="$(nmcli -t -f NAME,TYPE connection show | grep ':wireguard$' | awk -F ':' '{ print $1}' | grep -i bsw6 || return 1)"
+    local FAIL=0
+    if [[ "$1" == "connect"  ]]; then
+        sudo nmcli --ask connection up "$CONNECTION_NAME" || {
+            echo "Error connecting '$CONNECTION_NAME' .."
+            return 1;}
+        echo "VPN connected '$CONNECTION_NAME' "
+    elif [[ "$1" == "disconnect" ]] ; then
+        sudo nmcli --ask connection down "$CONNECTION_NAME" || {
+            echo "Error disconnecting '$CONNECTION_NAME' .."
+            return 1;}
+        echo "VPN disconnected '$CONNECTION_NAME' "
+    elif [[ "$1" == "status" ]] ; then
+        [[ "$(nmcli -t -f NAME,TYPE,ACTIVE connection show | grep "$CONNECTION_NAME" | awk -F ':' '{print $NF}' || exit 0)" == "yes" ]] || {
+            echo "Error: general status" ; return 1;}
+        ping 172.20.20.1 -c 1 -t 1 2>&1 >/dev/null || {
+            echo "Error: ping firewall" ; return 1;}
+        [[ "$(dig +short lucifron.bsw6.ch)" == "172.20.20.3" ]] || {
+            echo "Error: looking up lucifron" ; return 1;}
+        echo "All good, you're connected"
+        return 0
+    else
+        echo "Error: use 'connect', 'disconnect' or 'status'"
+        return 1
+    fi
+}
