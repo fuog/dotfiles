@@ -50,9 +50,10 @@ command -v kubectl >/dev/null 2>&1 && \
 
 # adding some bin paths for terraform/terragrunt
 # see https://github.com/tfutils/tfenv and https://github.com/tgenv/tgenv
-int_extend_path "$HOME/.tfenv/bin:$PATH" "true"
-int_extend_path "$HOME/.tgenv/bin:$PATH" "true"
-int_extend_path "${KREW_ROOT:-$HOME/.krew}/bin:$PATH" "true"
+int_extend_path "$HOME/.tfenv/bin" "true"
+int_extend_path "$HOME/.tgenv/bin" "true"
+int_extend_path "${KREW_ROOT:-$HOME/.krew}/bin" "true"
+int_extend_path "$HOME/.local/bin" "true"
 
 # setting go-stuff
 mkdir -p "$HOME/.golib"
@@ -62,3 +63,9 @@ int_extend_path "$GOPATH/bin"
 # adding SSH keys
 #add_ssh_id "$HOME/.ssh/id_rsa"
 #add_ssh_id "$HOME/.ssh/id_ed25519"
+
+# added because Tilix is asking for:
+# https://gnunn1.github.io/tilix-web/manual/vteconfig/
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
