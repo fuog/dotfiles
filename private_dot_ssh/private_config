@@ -3,3 +3,6 @@ Host *
 
 # Include the config files in the config.d directory
 Include ~/.ssh/config.d/*
+
+Host 172.20.21.2
+  ServerAliveInterval 1
