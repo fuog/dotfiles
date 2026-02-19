@@ -86,12 +86,12 @@
   apt:
     name: "{{ common_packages + apt_specific_packages }}"
 
-- name: Install Snap packages
-  snap:
-    name:
-      - codium
-      - brave
-      - chezmoi
-      - bitwarden
-      - dog
-      - joplin-desktop
+# - name: Install Snap packages
+#   snap:
+#     name:
+#       - codium
+#       - brave
+#       - chezmoi
+#       - bitwarden
+#       - dog
+#       - joplin-desktop
