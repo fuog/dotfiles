@@ -67,5 +67,6 @@ int_extend_path "$GOPATH/bin"
 # added because Tilix is asking for:
 # https://gnunn1.github.io/tilix-web/manual/vteconfig/
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
+        test -f /etc/profile.d/vte.sh && \
+            source /etc/profile.d/vte.sh
 fi
