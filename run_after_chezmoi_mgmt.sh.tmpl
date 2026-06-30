@@ -34,3 +34,6 @@ test -f "{{ .chezmoi.config.destDir }}/.scripts/git-credential-rbw-personal.sh" 
 
 test -f "{{ .chezmoi.config.destDir }}/.scripts/git-credential-rbw.sh" && \
     ln -sf "{{ .chezmoi.config.destDir }}/.scripts/git-credential-rbw.sh" "{{ .chezmoi.config.destDir }}/.local/bin/git-credential-rbw"
+
+test -f "{{ .chezmoi.config.destDir }}/.scripts/git-mgmt.sh" && \
+    ln -sf "{{ .chezmoi.config.destDir }}/.scripts/git-mgmt.sh" "{{ .chezmoi.config.destDir }}/.local/bin/git-mgmt"
