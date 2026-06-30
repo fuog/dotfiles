@@ -1,4 +1,5 @@
 **/age_privat_key.txt
+.ansible/
 dot_zshrc.d/05_work.zsh
 **/*_decrypted.*
 **/*_decrypted

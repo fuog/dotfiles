@@ -82,5 +82,3 @@ set noswapfile
 
 " let me turn inset mode on/off with F2
 set pastetoggle=<F2>
-
-

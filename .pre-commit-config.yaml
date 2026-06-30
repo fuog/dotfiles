@@ -1,0 +1,64 @@
+---
+default_stages: [pre-commit]
+fail_fast: false
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: \.age$
+      - id: end-of-file-fixer
+        exclude: \.age$
+      - id: mixed-line-ending
+        args: [--fix=lf]
+        exclude: \.age$
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-yaml
+      - id: detect-private-key
+
+  - repo: local
+    hooks:
+      - id: shellcheck
+        name: shellcheck bash scripts
+        entry: shellcheck
+        language: system
+        files: (^dot_scripts/.*\.sh$|^run_.*\.sh\.tmpl$)
+        exclude: ^run_once_install_zinit\.sh$
+
+      - id: yamllint
+        name: yamllint YAML files
+        entry: yamllint --strict
+        language: system
+        files: \.(yaml|yml)$
+
+      - id: encrypted-files-are-age
+        name: encrypted files use age armor
+        entry: >
+          bash -c 'for file do
+            test -f "$file" || continue;
+            head -n 1 "$file" | grep -qx -- "-----BEGIN AGE ENCRYPTED FILE-----" || {
+              echo "$file is not an age armored file";
+              exit 1;
+            };
+          done' --
+        language: system
+        files: \.age$
+
+      - id: no-tracked-decrypted-files
+        name: decrypted helper files are never tracked
+        entry: >
+          bash -c 'tracked="$(git ls-files | grep -E "(^|/).*_decrypted($|\\.)" || true)";
+          if test -n "$tracked"; then
+            echo "Decrypted helper files must stay ignored, not tracked:";
+            echo "$tracked";
+            exit 1;
+          fi'
+        language: system
+        pass_filenames: false
+        always_run: true
