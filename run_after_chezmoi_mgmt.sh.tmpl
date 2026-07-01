@@ -21,6 +21,9 @@ test -f "{{ .chezmoi.config.destDir }}/.gitconfig" && \
 test -f "{{ .chezmoi.config.destDir }}/.config/openfortivpn/m-vpn.conf" && \
     ln -sf "{{ .chezmoi.config.destDir }}//.config/openfortivpn/m-vpn.conf" "{{ .chezmoi.config.workingTree }}/dot_config/private_openfortivpn/encrypted_private_m-vpn_decrypted.conf"
 
+test -f "{{ .chezmoi.config.destDir }}/.DevOpsTools/skills-repos.conf" && \
+    ln -sf "{{ .chezmoi.config.destDir }}/.DevOpsTools/skills-repos.conf" "{{ .chezmoi.config.workingTree }}/dot_DevOpsTools/skills-repos_decrypted.conf"
+
 # Linking as command
 test -d "{{ .chezmoi.config.destDir }}/.local/bin" || \
     mkdir -p "{{ .chezmoi.config.destDir }}/.local/bin"

@@ -22,6 +22,8 @@ machine bootstrap configuration. Treat it as sensitive by default.
   and Galaxy requirements.
 - `run_onchange_exec_ansible.sh.tmpl` installs Ansible when needed and runs the
   bootstrap playbook after relevant bootstrap files change.
+- `run_after_chezmoi_mgmt.sh.tmpl` creates ignored decrypted-helper symlinks
+  after chezmoi applies files, only when the decrypted target exists.
 - `*.age` files are age-encrypted files managed by chezmoi.
 
 ## Sensitive Data Rules
@@ -62,6 +64,9 @@ Use the same pattern for other encrypted files:
 - The decrypted companion is a symlink to the real target under `$HOME`.
 - The symlink name must include `_decrypted` so existing ignore rules prevent it
   from being checked in.
+- Add or update the matching guarded `test -f ... && ln -sf ...` entry in
+  `run_after_chezmoi_mgmt.sh.tmpl` so chezmoi recreates the helper symlink after
+  apply. Do not rely on only creating the symlink manually.
 - Do not commit decrypted symlinks or decrypted plaintext.
 - Do not re-encrypt changed plaintext unless the user explicitly asks. If a
   decrypted target was changed, report that re-encryption is still needed.
