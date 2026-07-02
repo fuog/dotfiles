@@ -1,3 +1,14 @@
+# DevPod Start devops-tools.devpod
+Host devops-tools.devpod
+  ForwardAgent yes
+  LogLevel error
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  HostKeyAlgorithms rsa-sha2-256,rsa-sha2-512,ssh-rsa
+  ProxyCommand "/usr/local/bin/devpod" ssh --stdio --context default --user devopstoolsuser devops-tools
+  User devopstoolsuser
+# DevPod End devops-tools.devpod
+
 Host *
     ForwardAgent yes
 

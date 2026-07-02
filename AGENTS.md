@@ -67,6 +67,10 @@ Use the same pattern for other encrypted files:
 - Add or update the matching guarded `test -f ... && ln -sf ...` entry in
   `run_after_chezmoi_mgmt.sh.tmpl` so chezmoi recreates the helper symlink after
   apply. Do not rely on only creating the symlink manually.
+- Before adding helper symlinks, check `.chezmoiignore`. If the encrypted source
+  path is platform-specific, mirror the same platform guard in
+  `run_after_chezmoi_mgmt.sh.tmpl` so Linux-only and Darwin-only helpers are not
+  created on the wrong OS.
 - Do not commit decrypted symlinks or decrypted plaintext.
 - Do not re-encrypt changed plaintext unless the user explicitly asks. If a
   decrypted target was changed, report that re-encryption is still needed.

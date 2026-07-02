@@ -3,6 +3,8 @@ set -e
 # This is used to link the decrypted file to the Repo (and ignoring it) for easy working with that script
 # chezmoi does not like symbolic links that can't resolve to a file, it does error-out before evaluating `.chezmoiignore`
 # so we need to ONLY create the link if the file does exist (after decryption)
+chezmoi_os="{{ .chezmoi.os }}"
+
 test -f "{{ .chezmoi.config.destDir }}/.zshrc.d/05_work.zsh" && \
     ln -sf "{{ .chezmoi.config.destDir }}/.zshrc.d/05_work.zsh" "{{ .chezmoi.config.workingTree }}/dot_zshrc.d/encrypted_05_work_decrypted.zsh"
 
@@ -21,8 +23,21 @@ test -f "{{ .chezmoi.config.destDir }}/.scripts/git-credential-rbw-personal.sh" 
 test -f "{{ .chezmoi.config.destDir }}/.gitconfig" && \
     ln -sf "{{ .chezmoi.config.destDir }}//.gitconfig" "{{ .chezmoi.config.workingTree }}/encrypted_dot_gitconfig_decrypted"
 
+test -f "{{ .chezmoi.config.destDir }}/.DevOpsTools-personal-conf.yml" && \
+    ln -sf "{{ .chezmoi.config.destDir }}/.DevOpsTools-personal-conf.yml" "{{ .chezmoi.config.workingTree }}/encrypted_dot_DevOpsTools-personal-conf_decrypted.yml"
+
 test -f "{{ .chezmoi.config.destDir }}/.config/openfortivpn/m-vpn.conf" && \
     ln -sf "{{ .chezmoi.config.destDir }}//.config/openfortivpn/m-vpn.conf" "{{ .chezmoi.config.workingTree }}/dot_config/private_openfortivpn/encrypted_private_m-vpn_decrypted.conf"
+
+if [ "$chezmoi_os" = "linux" ]; then
+    test -f "{{ .chezmoi.config.destDir }}/.config/rbw/config.json" && \
+        ln -sf "{{ .chezmoi.config.destDir }}/.config/rbw/config.json" "{{ .chezmoi.config.workingTree }}/dot_config/rbw/encrypted_config_decrypted.json"
+fi
+
+if [ "$chezmoi_os" = "darwin" ]; then
+    test -f "{{ .chezmoi.config.destDir }}/Library/Application Support/rbw/config.json" && \
+        ln -sf "{{ .chezmoi.config.destDir }}/Library/Application Support/rbw/config.json" "{{ .chezmoi.config.workingTree }}/private_Library/private_Application Support/rbw/encrypted_config_decrypted.json"
+fi
 
 test -f "{{ .chezmoi.config.destDir }}/.DevOpsTools/skills-repos.conf" && \
     ln -sf "{{ .chezmoi.config.destDir }}/.DevOpsTools/skills-repos.conf" "{{ .chezmoi.config.workingTree }}/dot_DevOpsTools/encrypted_skills-repos_decrypted.conf"
@@ -32,6 +47,9 @@ test -f "{{ .chezmoi.config.destDir }}/.codex-private/config.toml" && \
 
 test -f "{{ .chezmoi.config.destDir }}/.codex-private/AGENTS.md" && \
     ln -sf "{{ .chezmoi.config.destDir }}/.codex-private/AGENTS.md" "{{ .chezmoi.config.workingTree }}/dot_codex-private/encrypted_AGENTS_decrypted.md"
+
+test -f "{{ .chezmoi.config.destDir }}/.ssh/vault/work-signed-cert.pub" && \
+    ln -sf "{{ .chezmoi.config.destDir }}/.ssh/vault/work-signed-cert.pub" "{{ .chezmoi.config.workingTree }}/private_dot_ssh/private_vault/encrypted_private_work-signed-cert_decrypted.pub"
 
 # Linking as command
 test -d "{{ .chezmoi.config.destDir }}/.local/bin" || \
