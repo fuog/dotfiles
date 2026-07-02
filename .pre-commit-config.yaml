@@ -62,3 +62,24 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+
+      - id: decrypted-helper-names
+        name: decrypted helper names keep encrypted prefix
+        entry: >
+          bash -c 'bad="$(find . -path ./.git -prune -o \( -name "*_decrypted" -o -name "*_decrypted.*" \) -print |
+          sed "s#^\./##" |
+          while IFS= read -r file; do
+            base="${file##*/}";
+            case "$base" in
+              encrypted_*_decrypted|encrypted_*_decrypted.*) ;;
+              *) printf "%s\n" "$file" ;;
+            esac;
+          done)";
+          if test -n "$bad"; then
+            echo "Decrypted helper names must keep the encrypted_ prefix and insert _decrypted before the extension:";
+            echo "$bad";
+            exit 1;
+          fi'
+        language: system
+        pass_filenames: false
+        always_run: true

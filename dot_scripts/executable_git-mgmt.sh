@@ -27,7 +27,7 @@ setup_status() {
     git -C "$repo" config --local --get user.name >/dev/null 2>&1 || missing+=("user.name")
     git -C "$repo" config --local --get user.email >/dev/null 2>&1 || missing+=("user.email")
 
-    if [[ -f "$repo/.pre-commit.yaml" ]]; then
+    if [[ -f "$repo/.pre-commit-config.yaml" ]]; then
         hook_path="$(git -C "$repo" rev-parse --git-path hooks/pre-commit)"
         [[ "$hook_path" == /* ]] || hook_path="$repo/$hook_path"
         [[ -x "$hook_path" ]] || missing+=("pre-commit")

@@ -46,8 +46,9 @@ rbw get "<entry-name-or-id>" --raw | jq -r '.data.password' > "$HOME/.config/che
 chmod 600 "$HOME/.config/chezmoi/age_identity_key.txt"
 ```
 
-Do not commit decrypted secrets. Decrypted helper files in this repo are
-symlinks named with `_decrypted` and are ignored by Git.
+Do not commit decrypted secrets. Decrypted helper files in this repo keep the
+`encrypted_` prefix, insert `_decrypted` before the extension, and are ignored
+by Git.
 
 ## Decrypted Symlinks
 
@@ -56,7 +57,7 @@ Encrypted files have local decrypted companions that point to the real target in
 
 ```text
 dot_zshrc.d/encrypted_05_work.zsh.age
-dot_zshrc.d/05_work_decrypted.zsh -> $HOME/.zshrc.d/05_work.zsh
+dot_zshrc.d/encrypted_05_work_decrypted.zsh -> $HOME/.zshrc.d/05_work.zsh
 ```
 
 This makes sensitive files easy to edit while keeping plaintext out of the

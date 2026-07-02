@@ -55,15 +55,15 @@ Example pattern:
 
 ```text
 dot_zshrc.d/encrypted_05_work.zsh.age
-dot_zshrc.d/05_work_decrypted.zsh -> $HOME/.zshrc.d/05_work.zsh
+dot_zshrc.d/encrypted_05_work_decrypted.zsh -> $HOME/.zshrc.d/05_work.zsh
 ```
 
 Use the same pattern for other encrypted files:
 
 - The repository stores only the `.age` file.
 - The decrypted companion is a symlink to the real target under `$HOME`.
-- The symlink name must include `_decrypted` so existing ignore rules prevent it
-  from being checked in.
+- The symlink name must keep the `encrypted_` prefix and insert `_decrypted`
+  before the extension so existing ignore rules prevent it from being checked in.
 - Add or update the matching guarded `test -f ... && ln -sf ...` entry in
   `run_after_chezmoi_mgmt.sh.tmpl` so chezmoi recreates the helper symlink after
   apply. Do not rely on only creating the symlink manually.

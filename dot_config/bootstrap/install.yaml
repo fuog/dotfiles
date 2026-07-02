@@ -18,7 +18,6 @@
       - vim
       - age
       - jq
-      - htop
       - xclip
       - tcpdump
 
@@ -32,7 +31,6 @@
     homebrew_specific_installed_packages:
       - rbw
       - chezmoi
-      - htop
       - dog
       - yq
       - gnutls
@@ -72,12 +70,8 @@
       - nfs-common
       - net-tools
       - python3
-      - dnsutils
-      - net-tools
       - wireshark
-      - podman
       - tilix
-      - grc
       - screen
       - openfortivpn
       - btop
